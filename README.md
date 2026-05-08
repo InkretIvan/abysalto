@@ -3,28 +3,28 @@ Restaurant Order API
 A simple ASP.NET Core Web API for managing restaurant orders using SQLite and Entity Framework Core.
 
 Features
-Create new orders
-View all orders
-Sort orders by total amount 
-Update order status
-Delete all orders (testing utility)
-Automatic total price calculation
-SQLite database persistence
-Swagger API documentation
+1. Create new orders
+2. View all orders
+3. Sort orders by total amount 
+4. Update order status
+5. Delete all orders (testing utility)
+6. Automatic total price calculation
+7. SQLite database persistence
+8. Swagger API documentation
   
 Tech Stack
-.NET 9
-ASP.NET Core Web API
-Entity Framework Core
-SQLite
-Swagger / OpenAPI
+1. .NET 9
+2. ASP.NET Core Web API
+3. Entity Framework Core
+4. SQLite
+5. Swagger / OpenAPI
   
 Project Structure
-Controllers → API endpoints
-Services → Business logic
-Infrastructure → Database layer
-Dtos → Request/Response models
-Models → Domain entities
+1. Controllers → API endpoints
+2. Services → Business logic
+3. Infrastructure → Database layer
+4. Dtos → Request/Response models
+5. Models → Domain entities
   
 Setup Instructions
 1. Clone repository
