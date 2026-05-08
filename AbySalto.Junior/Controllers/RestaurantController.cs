@@ -1,8 +1,37 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AbySalto.Junior.Dtos;
+using AbySalto.Junior.Services.Orders;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AbySalto.Junior.Controllers
 {
+    [ApiController]
+    [Route("api/restaurant")]
     public class RestaurantController : ControllerBase
     {
+        private readonly IOrderService _orderService;
+
+        public RestaurantController(IOrderService orderService)
+        {
+            _orderService = orderService;
+        }
+
+        [HttpPost("orders")]
+        public async Task<IActionResult> CreateOrder(
+            [FromBody] CreateOrderDto dto)
+        {
+            if (dto.Items.Count == 0)
+            {
+                return BadRequest("Order must contain items");
+            }
+
+            var orderId =
+                await _orderService.CreateOrderAsync(dto);
+
+            return Ok(new
+            {
+                Id = orderId,
+                Message = "Order created successfully"
+            });
+        }
     }
 }

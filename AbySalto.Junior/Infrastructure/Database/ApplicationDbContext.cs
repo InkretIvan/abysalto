@@ -18,6 +18,14 @@ namespace AbySalto.Junior.Infrastructure.Database
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+
+            modelBuilder.Entity<Order>()
+                .Property(o => o.TotalAmount)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<OrderItem>()
+                .Property(i => i.Price)
+                .HasPrecision(18, 2);
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
