@@ -40,5 +40,32 @@ namespace AbySalto.Junior.Controllers
             var orders = await _orderService.GetOrdersAsync(sortByTotal);
             return Ok(orders);
         }
+
+        [HttpPut("orders/{id}/status")]
+        public async Task<IActionResult> UpdateStatus(
+            int id,
+            [FromBody] UpdateOrderStatusDto dto)
+        {
+            var result = await _orderService.UpdateStatusAsync(id, dto.Status);
+
+            if (!result)
+                return NotFound("Order not found or cannot be updated");
+
+            return Ok(new
+            {
+                Message = "Status updated successfully"
+            });
+        }
+
+        [HttpDelete("orders")]
+        public async Task<IActionResult> DeleteAll()
+        {
+            await _orderService.DeleteAllAsync();
+
+            return Ok(new
+            {
+                Message = "All orders deleted successfully"
+            });
+        }
     }
 }

@@ -42,7 +42,7 @@ namespace AbySalto.Junior
                 });
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseAuthorization();
 
 

@@ -44,7 +44,7 @@ namespace AbySalto.Junior.Services.Orders
             return order.Id;
         }
 
-        public async Task<List<Order>> GetOrdersAsync(bool sortByTotal)
+        public async Task<List<OrderDto>> GetOrdersAsync(bool sortByTotal)
         {
             var orders = await _db.Orders
                 .Include(o => o.Items)
@@ -63,7 +63,60 @@ namespace AbySalto.Junior.Services.Orders
                     .ToList();
             }
 
-            return orders;
-}
+            return orders.Select(Map).ToList();
+        }
+
+        public async Task<bool> UpdateStatusAsync(int orderId, OrderStatus status)
+        {
+            var order = await _db.Orders
+                .FirstOrDefaultAsync(o => o.Id == orderId);
+
+            if (order == null)
+                return false;
+
+            if (order.Status == OrderStatus.Completed)
+                return false; 
+
+            order.Status = status;
+
+            await _db.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task DeleteAllAsync()
+        {
+            var orders = await _db.Orders
+                .Include(o => o.Items)
+                .ToListAsync();
+
+            _db.OrderItems.RemoveRange(_db.OrderItems);
+            _db.Orders.RemoveRange(orders);
+
+            await _db.SaveChangesAsync();
+        }
+
+        private static OrderDto Map(Order order)
+        {
+            return new OrderDto
+            {
+                Id = order.Id,
+                CustomerName = order.CustomerName,
+                Status = order.Status.ToString(),
+                OrderTime = order.OrderTime,
+                PaymentMethod = order.PaymentMethod,
+                DeliveryAddress = order.DeliveryAddress,
+                ContactNumber = order.ContactNumber,
+                Note = order.Note,
+                TotalAmount = order.TotalAmount,
+                Currency = order.Currency,
+                Items = order.Items.Select(i => new OrderItemDto
+                {
+                    Name = i.Name,
+                    Quantity = i.Quantity,
+                    Price = i.Price
+                }).ToList()
+            };
+        }
     }
 }
