@@ -57,6 +57,7 @@ namespace AbySalto.Junior.Controllers
             });
         }
 
+        //For testing purposes
         [HttpDelete("orders")]
         public async Task<IActionResult> DeleteAll()
         {
