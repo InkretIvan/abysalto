@@ -1,6 +1,7 @@
 using AbySalto.Junior.Dtos;
 using AbySalto.Junior.Infrastructure.Database;
 using AbySalto.Junior.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AbySalto.Junior.Services.Orders
 {
@@ -42,5 +43,27 @@ namespace AbySalto.Junior.Services.Orders
 
             return order.Id;
         }
+
+        public async Task<List<Order>> GetOrdersAsync(bool sortByTotal)
+        {
+            var orders = await _db.Orders
+                .Include(o => o.Items)
+                .ToListAsync();
+
+            if (sortByTotal)
+            {
+                orders = orders
+                    .OrderByDescending(o => o.TotalAmount)
+                    .ToList();
+            }
+            else
+            {
+                orders = orders
+                    .OrderByDescending(o => o.OrderTime)
+                    .ToList();
+            }
+
+            return orders;
+}
     }
 }

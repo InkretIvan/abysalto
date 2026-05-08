@@ -33,5 +33,12 @@ namespace AbySalto.Junior.Controllers
                 Message = "Order created successfully"
             });
         }
+
+        [HttpGet("orders")]
+        public async Task<IActionResult> GetOrders([FromQuery] bool sortByTotal = false)
+        {
+            var orders = await _orderService.GetOrdersAsync(sortByTotal);
+            return Ok(orders);
+        }
     }
 }
