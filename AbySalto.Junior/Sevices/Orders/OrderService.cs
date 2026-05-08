@@ -34,6 +34,7 @@ namespace AbySalto.Junior.Services.Orders
                 }).ToList()
             };
 
+            //This could also be a method in Order, maybe better OOP becuase order shoud know how to calculate it's own total
             order.TotalAmount =
                 order.Items.Sum(i => i.Price * i.Quantity);
 
@@ -50,7 +51,7 @@ namespace AbySalto.Junior.Services.Orders
                 .Include(o => o.Items)
                 .ToListAsync();
 
-            if (sortByTotal)
+            if (sortByTotal) //will sort descending
             {
                 orders = orders
                     .OrderByDescending(o => o.TotalAmount)
