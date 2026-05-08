@@ -1,5 +1,6 @@
 
 using AbySalto.Junior.Infrastructure.Database;
+using AbySalto.Junior.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 

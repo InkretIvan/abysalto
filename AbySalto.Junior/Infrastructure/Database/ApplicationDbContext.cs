@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using AbySalto.Junior.Models;
 
 namespace AbySalto.Junior.Infrastructure.Database
 {
@@ -8,7 +9,9 @@ namespace AbySalto.Junior.Infrastructure.Database
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
 
+        public DbSet<Order> Orders { get; set; }
 
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

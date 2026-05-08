@@ -2,7 +2,7 @@
 
 namespace AbySalto.Junior.Controllers
 {
-    public class RestaurantController : Controller
+    public class RestaurantController : ControllerBase
     {
     }
 }
