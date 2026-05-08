@@ -28,11 +28,10 @@ Project Structure
   
 Setup Instructions
 1. Clone repository
-2. Restore dependencies
-dotnet restore
-3. Apply database migrations
-4. dotnet ef database update
-5. Run application
-6. dotnet run
+2. Restore dependencies (dotnet restore)
+3. Apply database migrations (dotnet ef database update)
+4. Run application (dotnet run)
+5. Note: project uses sqlite for .net 9.0
+
 
 http://localhost:5074
